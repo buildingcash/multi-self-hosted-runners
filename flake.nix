@@ -46,7 +46,8 @@
           extraLabels = [ "m2" "self-hosted" "self-hosted-macos" ];
         })
       ];
-
     };
+
+    # Add more configurations here
   };
 }
