@@ -19,11 +19,10 @@
             enable = true;
             name = "${prefix}-runner-${toString i}";
             url = "https://github.com/buildingcash";
-            extraPackages = with pkgs; [
-              gnumake
-              clang
-              gnused
-            ];
+            extraPackages = with pkgs; [];
+            extraEnvironment = {
+              ACTIONS_RUNNER_HOOK_JOB_COMPLETED = "${./scripts/github-job-cleanup.sh}";
+            };
           };
         }) (builtins.genList (i: i + 1) n)
       );
@@ -31,7 +30,7 @@
     };
   in
   {
-    # $ darwin-rebuild build --flake .#mac-mini-1
+    # $ darwin-rebuild switch --flake .#mac-mini-1
     darwinConfigurations."mac-mini-1" = nix-darwin.lib.darwinSystem {
       modules = [
         ./machines/mac-mini.nix
