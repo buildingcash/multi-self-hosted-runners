@@ -14,6 +14,10 @@
   programs.zsh.enable = true;
 
   system.stateVersion = 4;
+  system.activationScripts.postActivation.text = ''
+    echo "Disabling autosleep..."
+    pmset -a disablesleep 1
+  '';
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 }
