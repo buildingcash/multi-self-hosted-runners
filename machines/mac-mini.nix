@@ -10,6 +10,16 @@
   # Enable flakes
   nix.settings.experimental-features = "nix-command flakes";
 
+  nix.optimise.automatic = true;
+
+  nix.gc = {
+    automatic = true;
+    interval = { Hour = 0; Minute = 0; }; # Run everyday at 00h
+    options = "--delete-older-than 7d";
+  };
+
+  time.timeZone = "Europe/Paris";
+
   # Create /etc/zshrc that loads the nix-darwin environment.
   programs.zsh.enable = true;
 
