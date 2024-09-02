@@ -35,5 +35,19 @@
     sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
   '';
 
+  # Prune docker everyday at 00h
+  launchd.daemons.prune-docker = {
+    command = "${pkgs.docker}/bin/docker system prune -f";
+    serviceConfig = {
+      StartCalendarInterval = [
+        {
+          Hour = 0;
+          Minute = 0;
+        }
+      ];
+    };
+  };
+
+
   nixpkgs.hostPlatform = "aarch64-darwin";
 }
