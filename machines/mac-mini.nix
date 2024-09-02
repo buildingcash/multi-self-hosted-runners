@@ -31,7 +31,7 @@
 
   system.activationScripts.postUserActivation.text = ''
     echo "Enabling docker..."
-    ${pkgs.colima}/bin/colima start --cpu 8 --memory 6 --mount /private/var/run/github-runners
+    ${pkgs.colima}/bin/colima start --cpu 8 --memory 6 --disk 80 --mount /private/var/run/github-runners
     sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
   '';
 
