@@ -19,7 +19,7 @@
             enable = true;
             name = "${prefix}-runner-${toString i}";
             url = "https://github.com/buildingcash";
-            extraPackages = with pkgs; [ coreutils gnused gnugrep ];
+            extraPackages = with pkgs; [ coreutils gnused gnugrep procps ];
             extraEnvironment = {
               ACTIONS_RUNNER_HOOK_JOB_COMPLETED = "${./scripts/github-job-cleanup.sh}";
             };
