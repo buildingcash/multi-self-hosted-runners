@@ -2,7 +2,9 @@
 { pkgs, ... }: {
 
   # specific packages for mac-mini:
-  environment.systemPackages = [];
+  environment.systemPackages = [
+    pkgs.docker
+  ];
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
@@ -31,7 +33,7 @@
 
   system.activationScripts.postUserActivation.text = ''
     echo "Enabling docker..."
-    ${pkgs.colima}/bin/colima start --cpu 8 --memory 6 --disk 80 --mount /private/var/run/github-runners
+    ${pkgs.colima}/bin/colima start --cpu 8 --memory 6 --disk 80 --mount /private/var/lib/github-runners
     sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
   '';
 
