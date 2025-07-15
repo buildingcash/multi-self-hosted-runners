@@ -7,7 +7,7 @@
   ];
 
   # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  nix.enable = true;
 
   # Enable flakes
   nix.settings.experimental-features = "nix-command flakes";
@@ -26,14 +26,13 @@
   programs.zsh.enable = true;
 
   system.stateVersion = 4;
+
   system.activationScripts.postActivation.text = ''
     echo "Disabling autosleep..."
     pmset -a disablesleep 1
-  '';
 
-  system.activationScripts.postUserActivation.text = ''
     echo "Enabling docker..."
-    ${pkgs.colima}/bin/colima start --cpu 8 --memory 6 --disk 80 --mount /private/var/lib/github-runners
+    sudo -i -u jasp ${pkgs.colima}/bin/colima start --cpu 8 --memory 6 --disk 80 --mount /private/var/lib/github-runners
     sudo ln -sf $HOME/.colima/default/docker.sock /var/run/docker.sock
   '';
 
